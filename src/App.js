@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getData } from "./actions";
+import styled from "styled-components";
 import "./App.css";
 
 function App(props) {
   const { data, error, isFetching, getData } = props;
-  console.log(props.data.usd);
+
   useEffect(() => {
     getData();
   }, []);
@@ -20,16 +21,21 @@ function App(props) {
 
   return (
     <div className="App">
-      <h2>
-        {data.btc.name} / {data.usd.name}
-      </h2>
-      <h3>
-        ({data.btc.unit} / {data.usd.unit})
-      </h3>
-      <h4>${data.usd.value}</h4>
+      <StyledH2>
+        {data.btc.name} ({data.btc.unit}) vs. {data.usd.name} ({data.usd.unit})
+      </StyledH2>
+      <StyledH4>Current Value: ${data.usd.value}</StyledH4>
     </div>
   );
 }
+
+const StyledH2 = styled.h2`
+  color: violet;
+`;
+
+const StyledH4 = styled.h4`
+  color: purple;
+`;
 
 const mapStateToProps = (state) => {
   return {
